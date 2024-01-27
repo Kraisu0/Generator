@@ -1,0 +1,7 @@
+.main-text {
+    -fx-text-fill: #fff000;
+    -fx-font-family: "Consolas bold";
+    -fx-font-size: 30px;
+    -fx-alignment: top-center;
+    -fx-effect: dropshadow(three-pass-box, brown, 2, 2, 0, 0);
+}

@@ -1,0 +1,2 @@
+data_1.txt$$Imiona$$1
+data_2.txt$$Alkohole$$2

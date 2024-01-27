@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Spinner?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="1200.0" maxWidth="1920.0" prefHeight="1080.0" prefWidth="1920.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.generator.generator.DataBaseController">
+   <children>
+      <Pane maxHeight="1200.0" maxWidth="1920.0" prefHeight="1980.0" prefWidth="1920.0" style="-fx-background-color: linear-gradient(to bottom, gray, #000000);" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0" />
+      <VBox layoutX="90.0" layoutY="150.0" prefHeight="800.0" prefWidth="620.0" AnchorPane.leftAnchor="60.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="618.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="DATA BASES" textFill="#fff000">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <ScrollPane focusTraversable="false" hbarPolicy="NEVER" maxHeight="760.0" opacity="0.5" prefWidth="620.0" vbarPolicy="AS_NEEDED">
+               <content>
+                  <GridPane fx:id="gridPane" gridLinesVisible="true" layoutX="0.0" layoutY="0.0" prefWidth="620.0">
+                  </GridPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <VBox layoutX="790.0" layoutY="150.0" prefHeight="830.0" prefWidth="340.0" AnchorPane.leftAnchor="790.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label alignment="TOP_CENTER" prefHeight="40.0" prefWidth="340.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="ADD NEW" textFill="#fff000">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Pane fx:id="addNewPane" disable="true" prefHeight="230.0" prefWidth="340.0" style="-fx-background-color: grey; -fx-background-radius: 20; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 20;">
+               <children>
+                  <TextField fx:id="addNewTextField" layoutX="35.0" layoutY="30.0" prefHeight="25.0" prefWidth="270.0" promptText="element">
+                     <font>
+                        <Font name="Consolas" size="12.0" />
+                     </font>
+                  </TextField>
+                  <Button fx:id="addButton" layoutX="130.0" layoutY="120.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="30.0" prefWidth="80.0" text="ADD">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="addNewStatusLabel" alignment="CENTER" layoutX="74.0" layoutY="170.0" prefHeight="40.0" prefWidth="192.0" textFill="LIME" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="addNewTDescriptionTextField" layoutX="35.0" layoutY="70.0" prefHeight="25.0" prefWidth="270.0" promptText="element desription">
+                     <font>
+                        <Font name="Consolas" size="12.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </Pane>
+            <Pane prefHeight="10.0" prefWidth="340.0" />
+            <Label alignment="TOP_CENTER" prefHeight="40.0" prefWidth="340.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="REMOVE" textFill="#fff000">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Pane fx:id="removePane" disable="true" prefHeight="200.0" prefWidth="340.0" style="-fx-background-color: grey; -fx-background-radius: 20; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 20;">
+               <children>
+                  <Button fx:id="removeButton" layoutX="130.0" layoutY="100.0" mnemonicParsing="false" onAction="#removeButtonClicked" prefHeight="30.0" prefWidth="80.0" text="REMOVE">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="removeStatusLabel" alignment="CENTER" layoutX="74.0" layoutY="150.0" prefHeight="40.0" prefWidth="192.0" textFill="LIME" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Spinner fx:id="removeSpinner" editable="true" layoutX="130.0" layoutY="40.0" prefHeight="25.0" prefWidth="80.0" />
+               </children>
+            </Pane>
+            <Pane prefHeight="10.0" prefWidth="340.0" />
+            <Label alignment="TOP_CENTER" prefHeight="40.0" prefWidth="340.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="SAVE" textFill="#ffee00">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Pane fx:id="savePane" disable="true" prefHeight="100.0" prefWidth="340.0" style="-fx-background-color: grey; -fx-background-radius: 20; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 20;">
+               <children>
+                  <Button fx:id="saveInDifrentLocationButton" layoutX="147.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveInDifrentLocationButtonClicked" prefHeight="30.0" prefWidth="179.0" style="-fx-background-color: linear-gradient(to bottom, #ffffff, #b9f0cc);" text="SAVE IN DIFRENT LOCATION">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Button>
+                  <Label fx:id="saveSatatusLabel" alignment="CENTER" layoutX="74.0" layoutY="50.0" prefHeight="40.0" prefWidth="192.0" textFill="LIME" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="saveButton" layoutX="34.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveButtonClicked" prefHeight="30.0" prefWidth="80.0" text="SAVE">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+            <Pane prefHeight="10.0" prefWidth="340.0" />
+            <Pane prefHeight="10.0" prefWidth="340.0" />
+            <Label alignment="TOP_CENTER" prefHeight="40.0" prefWidth="340.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="OPEN" textFill="#ffee00">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <Pane fx:id="OpenPane" disable="true" prefHeight="100.0" prefWidth="340.0" style="-fx-background-color: grey; -fx-background-radius: 20; -fx-border-color: white; -fx-border-width: 3; -fx-border-radius: 20;">
+               <children>
+                  <Label fx:id="openStatusLabel" alignment="CENTER" layoutX="74.0" layoutY="50.0" prefHeight="40.0" prefWidth="192.0" textFill="LIME" wrapText="true">
+                     <font>
+                        <Font name="Consolas Bold" size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="openButton" layoutX="130.0" layoutY="14.0" mnemonicParsing="false" onAction="#openButtonClicked" prefHeight="30.0" prefWidth="80.0" text="OPEN &gt;&gt;&gt;">
+                     <font>
+                        <Font name="Consolas Bold" size="12.0" />
+                     </font>
+                  </Button>
+               </children>
+            </Pane>
+         </children>
+      </VBox>
+      <VBox layoutX="1243.0" layoutY="150.0" prefHeight="800.0" prefWidth="620.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="100.0">
+         <children>
+            <Label alignment="CENTER" prefHeight="17.0" prefWidth="618.0" styleClass="main-text" stylesheets="@../../../Styles/LabelStyles.css" text="PREVIEW" textFill="#fff000">
+               <font>
+                  <Font name="Consolas Bold" size="30.0" />
+               </font>
+            </Label>
+            <ScrollPane focusTraversable="false" opacity="0.5" prefHeight="760.0" prefWidth="620.0" vbarPolicy="AS_NEEDED">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="600.0">
+                     <children>
+                        <Label fx:id="datasLabel" alignment="TOP_LEFT" prefWidth="600.0" text="Datas." wrapText="true">
+                           <font>
+                              <Font name="Consolas" size="14.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+               </content>
+            </ScrollPane>
+         </children>
+      </VBox>
+      <Button fx:id="backButton" layoutX="899.0" layoutY="1077.0" mnemonicParsing="false" onAction="#backButtonClicked" prefHeight="37.0" prefWidth="123.0" text="BACK &lt;&lt;&lt;" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="900.0">
+         <font>
+            <Font name="Consolas Bold" size="20.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
