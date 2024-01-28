@@ -1,3 +1,4 @@
 Piwo##10
 Wino##20
 Wódka##40
+Gin##25

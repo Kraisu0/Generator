@@ -18,10 +18,7 @@ import javafx.scene.text.Font;
 import javafx.util.Duration;
 import helpz.Constants;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -31,18 +28,17 @@ public class DataBaseController implements Initializable {
     @FXML
     public Button addButton, saveInDifrentLocationButton, removeButton, saveButton, openButton, backButton;
     @FXML
-    public Label addNewStatusLabel, removeStatusLabel, saveSatatusLabel, datasLabel, openStatusLabel;
-    @FXML
-    public Spinner removeSpinner;
+    public Label addNewStatusLabel, removeStatusLabel, saveSatatusLabel, datasLabel, openStatusLabel, removeNameLabel, removeNumberLabel, removeDescriptionLabel;
     @FXML
     public Pane addNewPane, removePane, savePane, OpenPane;
     @FXML
-    private GridPane gridPane;
+    private GridPane gridPane, gridPane1;
     public int fileCounter = 0;
+    private int selectedFileType = 0;
     public String[][] fileDescription;
     public String filePath = "src/main/resources/Files/all_files.txt";
     public String mainFilePath = "src/main/resources/Files/";
-    public String selectedFile = "";
+    private String selectedFile, selectedDataName, selectedDataIndex, selectedDataDescription, fileOpenPath;
     private Pane selectedPane;
 
 
@@ -93,6 +89,7 @@ public class DataBaseController implements Initializable {
     public void loadAllData(){
         for (int i = 0; i <fileCounter; i++) {
             String fileName = fileDescription[i][0];
+            String fileType = fileDescription[i][2];
             Pane newDataPane = new Pane();
             Label newDataPaneTitle = new Label(fileDescription[i][1]);
             Label newDataPaneDate = new Label(fileDescription[i][2]);
@@ -101,13 +98,14 @@ public class DataBaseController implements Initializable {
             newDataPaneDate.setLayoutX(10);
             newDataPaneTitle.setLayoutY(10);
             newDataPaneDate.setLayoutY(40);
-            newDataPaneTitle.setPrefWidth(600);
-            newDataPaneDate.setPrefWidth(600);
+            newDataPaneTitle.setPrefWidth(590);
+            newDataPaneDate.setPrefWidth(590);
             newDataPaneTitle.setPrefHeight(30);
             newDataPaneDate.setPrefHeight(30);
 
             newDataPane.setOnMouseClicked(mouseEvent -> {
                 selectedFile = fileName;
+                selectedFileType = Integer.parseInt(fileType);
                 OpenPane.setDisable(false);
             });
 
@@ -123,7 +121,6 @@ public class DataBaseController implements Initializable {
             // Add new notification to the GridPane on the appropriate row
             gridPane.add(newDataPane, 0, i);
         }
-
     }
 
     public String openFile(String fileOpenPath){
@@ -141,6 +138,68 @@ public class DataBaseController implements Initializable {
             throw new RuntimeException(e);
         }
         return content.toString();
+    }
+
+    public void openFile2(String fileOpenPath){
+        int index = 0;
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(fileOpenPath))) {
+            String line;
+
+            while ((line = reader.readLine()) != null){
+
+                String inIndex = String.valueOf(index + 1);
+                String name;
+                String description;
+                String name2type;
+
+                if(selectedFileType == 2){
+                    String[] parts = line.split("##", 2);
+                    name2type = parts[0];
+                    description = parts[1];
+                    name = name2type + " - " + description;
+                } else {
+                    name2type = null;
+                    name = line;
+                    description = "Test";
+                }
+
+                Pane newDataLabel = new Pane();
+            Label newDataLabelTitle = new Label(inIndex + ". " + name);
+
+            newDataLabelTitle.setLayoutX(10);
+            newDataLabelTitle.setLayoutY(10);
+            newDataLabelTitle.setPrefWidth(590);
+            newDataLabelTitle.setPrefHeight(18);
+
+                newDataLabel.setOnMouseClicked(mouseEvent -> {
+                removeNumberLabel.setText(inIndex);
+                if(selectedFileType == 1){
+                    removeNameLabel.setText(name);
+                    removeDescriptionLabel.setStyle("-fx-background-color: #bebebe");
+                    removeDescriptionLabel.setText("");
+                }else if(selectedFileType == 2){
+                    removeNameLabel.setText(name2type);
+                    removeDescriptionLabel.setStyle("-fx-background-color: white");
+                    removeDescriptionLabel.setText(description);
+                }else {
+                    System.out.println("Undefined File type!");
+                }
+
+                removePane.setDisable(false);
+            });
+
+            setColors(newDataLabel);
+
+            newDataLabel.getChildren().addAll(newDataLabelTitle);
+
+            gridPane1.add(newDataLabel, 0, index);
+                index++;
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     void setColors(Pane newPane) {
@@ -183,8 +242,54 @@ public class DataBaseController implements Initializable {
         timeline.play();
     }
 
-    public void addButtonClicked(ActionEvent actionEvent) {
+    private void openUsablePanes(int type){
 
+        if(type == 1){
+            addNewPane.setDisable(false);
+            savePane.setDisable(false);
+            addNewTDescriptionTextField.setDisable(true);
+        }else if (type == 2){
+            addNewPane.setDisable(false);
+            savePane.setDisable(false);
+            addNewTDescriptionTextField.setDisable(false);
+        }else{
+            System.out.println("Undefined type!");
+        }
+    }
+
+    private void addToFile(){
+
+        String lineToAdd = "";
+
+        if(selectedFileType == 1){
+            lineToAdd = addNewTextField.getText();
+        }else if(selectedFileType == 2){
+            lineToAdd = addNewTextField.getText() + "##" + addNewTDescriptionTextField.getText();
+        }else{
+            System.out.println("Undefined type!");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileOpenPath, true))) {
+            writer.write(lineToAdd);
+            writer.newLine();
+            statusLabelOpen2500(addNewStatusLabel,"Data added successfully!", Constants.Colors.GREEN);
+        } catch (IOException e) {
+            statusLabelOpen2500(addNewStatusLabel,"Error while adding data!", Constants.Colors.RED);
+            System.err.println("Błąd podczas dodawania linii do pliku: " + e.getMessage());
+        }
+    }
+
+    remow
+
+    private void openNewFile(){
+        gridPane1.getChildren().clear();
+        fileOpenPath = mainFilePath + selectedFile;
+        openFile2(fileOpenPath);
+    }
+
+    public void addButtonClicked(ActionEvent actionEvent) {
+        addToFile();
+        openNewFile();
     }
 
     public void removeButtonClicked(ActionEvent actionEvent) {
@@ -197,10 +302,9 @@ public class DataBaseController implements Initializable {
     }
 
     public void openButtonClicked(ActionEvent actionEvent) {
-        String fileOpenPath = mainFilePath + selectedFile;
-        String fileContent = openFile(fileOpenPath);
-        datasLabel.setText(fileContent);
+        openNewFile();
         statusLabelOpen2500(openStatusLabel, ("file opened correctly: " + selectedFile), Constants.Colors.GREEN);
+        openUsablePanes(selectedFileType);
     }
 
     public void backButtonClicked(ActionEvent actionEvent) throws IOException {
